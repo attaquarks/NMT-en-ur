@@ -1,95 +1,88 @@
 # English-Urdu Neural Machine Translation
 
-This Streamlit application demonstrates Neural Machine Translation from English to Urdu using an Encoder-Decoder LSTM model with Bahdanau Attention mechanism.
+This project is a Streamlit demo for English-to-Urdu neural machine translation using an encoder-decoder LSTM architecture with Bahdanau attention.
 
 ## Features
 
-- Translation from English to Urdu
-- Attention mechanism visualization
-- Training history visualization
-- Easy-to-use web interface
+- Translates English sentences into Urdu.
+- Uses an encoder-decoder recurrent neural network architecture.
+- Implements Bahdanau attention for interpretable token alignment.
+- Provides a Streamlit interface for interactive translation.
+- Supports attention visualization and training-history display when model artifacts are available.
 
-## Setup Instructions
+## Tech Stack
 
-### Prerequisites
+- Python
+- TensorFlow / Keras
+- Streamlit
+- NumPy
+- Matplotlib
+- NLTK
+- scikit-learn
 
-- Python 3.8+
-- pip package manager
+## Repository Structure
 
-### Installation
-
-1. Clone this repository or download the files:
-
-```bash
-git clone <repository-url>
-cd english-urdu-nmt
+```text
+app.py                    Streamlit translation interface
+encoder_decoder_lstm.py   Model architecture and translation logic
+setup_model.py            Model artifact setup helper
+requirements.txt          Python dependencies
+nmt_output/               Generated or downloaded model outputs
 ```
 
-2. Create a virtual environment (recommended):
+## Model Artifacts
 
-```bash
-python -m venv venv
+The app expects trained model artifacts in a `model/` directory:
+
+```text
+model/
+  best_encoder_weights.weights.h5
+  best_decoder_weights.weights.h5
+  tokenizer_input.json
+  tokenizer_target.json
+  max_lengths.json
+  training_history.json
 ```
 
-3. Activate the virtual environment:
+These files should come from the training workflow or a previously trained Kaggle run.
 
-- On Windows:
-```bash
-venv\Scripts\activate
-```
-- On macOS/Linux:
-```bash
-source venv/bin/activate
-```
-
-4. Install the required packages:
+## Installation
 
 ```bash
+git clone https://github.com/attaquarks/NMT-en-ur.git
+cd NMT-en-ur
+python -m venv .venv
+.venv\\Scripts\\activate
 pip install -r requirements.txt
 ```
 
-### Prepare the Model Files
+On macOS/Linux:
 
-Create a `model` directory and place the following files inside:
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
 
-- `best_encoder_weights.weights.h5`
-- `best_decoder_weights.weights.h5`
-- `tokenizer_input.json`
-- `tokenizer_target.json`
-- `max_lengths.json`
-- `training_history.json`
-
-These files should be the ones you downloaded after training your model on Kaggle.
-
-### Running the Application
-
-Run the Streamlit app with:
+## Run
 
 ```bash
 streamlit run app.py
 ```
 
-This will start the application and open it in your default web browser.
+Open:
 
-## Using the Application
+```text
+http://localhost:8501
+```
 
-1. Enter English text in the input field or select from the example sentences.
-2. Click the "Translate" button.
-3. View the Urdu translation result.
-4. If enabled, you can also see the attention visualization showing which words the model focused on during translation.
+## Usage
 
-## Model Architecture
+1. Enter an English sentence.
+2. Click translate.
+3. Review the Urdu output.
+4. Enable attention visualization if the required model metadata is available.
 
-- **Encoder**: LSTM with Embedding Layer
-- **Attention**: Bahdanau Attention Mechanism
-- **Decoder**: LSTM with Attention and Dense Output Layer
+## Project Status
 
-The model was trained on OpenSubtitles English-Urdu parallel corpus with the following parameters:
-- Embedding Dimension: 256
-- LSTM Units: 512
-- Dropout Rate: 0.2
-
-## Troubleshooting
-
-- If you encounter any errors related to model loading, ensure that all the model files are correctly placed in the `model` directory.
-- If you see CUDA/GPU related errors, try running with CPU only by setting the environment variable: `export CUDA_VISIBLE_DEVICES=-1` (Linux/Mac) or `set CUDA_VISIBLE_DEVICES=-1` (Windows)
+This repository demonstrates sequence-to-sequence NLP with attention in a user-facing translation demo. It is useful for understanding machine translation model structure, inference artifacts, and interface integration.
